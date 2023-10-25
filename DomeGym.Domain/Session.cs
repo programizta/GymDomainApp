@@ -1,4 +1,5 @@
 ﻿using DomeGym.Domain.Interfaces;
+using ErrorOr;
 
 namespace DomeGym.Domain;
 public class Session
@@ -40,14 +41,16 @@ public class Session
         }
     }
 
-    public void ReserveSpot(Participant participant)
+    public ErrorOr<Success> ReserveSpot(Participant participant)
     {
         if (_participantIds.Count >= _maximumNumberOfParticipants)
         {
-            throw new Exception("You cannot add more participants than available reservations in a session");
+            return Error.Validation(description: "You cannot add more participants than available reservations in a session");
         }
 
         _participantIds.Add(participant.ParticipantId);
+
+        return Result.Success;
     }
 
     private bool IsTooCloseToSession(DateTime specifiedDateTime)

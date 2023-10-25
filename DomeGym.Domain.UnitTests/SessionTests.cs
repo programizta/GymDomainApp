@@ -2,6 +2,7 @@ using System;
 using DomeGym.Domain.UnitTests.TestUtils.Participants;
 using DomeGym.Domain.UnitTests.TestUtils.Services;
 using DomeGym.Domain.UnitTests.TestUtils.Sessions;
+using ErrorOr;
 using FluentAssertions;
 using Xunit;
 
@@ -20,12 +21,12 @@ public class SessionTests
             participantId: Guid.NewGuid());
 
         // Act
-        var validReservationAction = () => session.ReserveSpot(participant1);
-        var invalidReservationAction = () => session.ReserveSpot(participant2);
+        var participant1ReservationResult = session.ReserveSpot(participant1);
+        var participant2ReservationResult = session.ReserveSpot(participant2);
 
         // Assert
-        validReservationAction.Should().NotThrow();
-        invalidReservationAction.Should().ThrowExactly<Exception>();
+        participant1ReservationResult.IsError.Should().BeFalse();
+        participant2ReservationResult.IsError.Should().BeTrue();
     }
 
     // in current development, the subscription hasn't been impemented yet!
