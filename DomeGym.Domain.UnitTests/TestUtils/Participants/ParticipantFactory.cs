@@ -1,6 +1,6 @@
 using System;
 
-namespace DomeGym.Domain.UnitTests.TestUtils.Sessions;
+namespace DomeGym.Domain.UnitTests.TestUtils.Participants;
 
 public static class ParticipantFactory
 {

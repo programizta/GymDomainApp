@@ -2,7 +2,7 @@
 
 ## Session invariants
 
-- A session cannot contain more than the maximum number of participants 
+- A session cannot contain more than the maximum number of participants
 - A reservation cannot be canceled for free less than 24 hours before the session starts
 
 ## Gym invariants
