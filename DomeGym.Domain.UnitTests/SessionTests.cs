@@ -1,8 +1,10 @@
 using System;
+using DomeGym.Domain.Constants;
+using DomeGym.Domain.ErrorCodes;
 using DomeGym.Domain.UnitTests.TestUtils.Participants;
 using DomeGym.Domain.UnitTests.TestUtils.Services;
 using DomeGym.Domain.UnitTests.TestUtils.Sessions;
-using ErrorOr;
+using DomeGym.Domain.UnitTests.TestUtils.Subscriptions;
 using FluentAssertions;
 using Xunit;
 
@@ -26,10 +28,10 @@ public class SessionTests
 
         // Assert
         participant1ReservationResult.IsError.Should().BeFalse();
-        participant2ReservationResult.IsError.Should().BeTrue();
+        participant2ReservationResult.FirstError.Should().Be(SessionErrors.NoMoreFreeSlotsForReservation);
     }
 
-    // in current development, the subscription hasn't been impemented yet!
+    // TODO: in current development, the subscription hasn't been impemented yet!
     [Fact]
     public void CancelReservationLessThan24HoursBeforeSession_FreeSubscription_ShouldFailCancellation()
     {
@@ -38,20 +40,22 @@ public class SessionTests
             startTime: TestConstants.Session.StartTime,
             endTime: TestConstants.Session.EndTime,
             maximumNumberOfParticipants: 1);
-
+        var subscription = SubscriptionFactory.CreateSubscription(DomainConstants.FreeSubscription);
         var participant = ParticipantFactory.CreateParticipant();
 
-        session.ReserveSpot(participant);
+        var reserveSpotResult = session.ReserveSpot(participant);
 
         // if we specify the same DateTime as the starting date of a session
         // we should expect that cancellation of the reservation should fail
         var cancellationDateTime = TestConstants.Session.Date.ToDateTime(TimeOnly.MinValue);
 
         // Act
-        var cancellationAction = () => session.CancelReservation(
+        var cancellationResult = session.CancelReservation(
             participant,
             new TestDateTimeProvider(cancellationDateTime));
 
-        cancellationAction.Should().ThrowExactly<Exception>();
+        reserveSpotResult.IsError.Should().BeFalse();
+        cancellationResult.IsError.Should().BeTrue();
+        cancellationResult.FirstError.Should().Be(SessionErrors.CannotCancelReservationInLessThan24HoursBeforeSessionStarts);
     }
 }

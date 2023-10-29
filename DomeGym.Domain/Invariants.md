@@ -11,7 +11,7 @@
 
 ## Room invariants
 
-- A room cannot more sessions than the subscription allows
+- A room cannot have more sessions than the subscription allows
 - A room cannot have two or more overlapping sessions
 
 ## Subscription invariants
@@ -20,4 +20,8 @@
 
 ## Trainer invariants
 
-- 
+- A trainer cannot teach two or more overlapping sessions
+
+## Participant invariants
+
+- A participant cannot reserve overlapping sessions

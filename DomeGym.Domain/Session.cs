@@ -1,10 +1,11 @@
-﻿using DomeGym.Domain.Interfaces;
+﻿using DomeGym.Domain.ErrorCodes;
+using DomeGym.Domain.Interfaces;
 using ErrorOr;
 
 namespace DomeGym.Domain;
+
 public class Session
 {
-    private readonly Guid _sessionId;
     private readonly Guid _trainerId;
     private readonly List<Guid> _participantIds = new List<Guid>();
     private readonly DateOnly _date;
@@ -12,40 +13,44 @@ public class Session
     private readonly TimeOnly _endTime;
     private readonly int _maximumNumberOfParticipants;
 
+    public Guid Id { get; }
+
     public Session(DateOnly date,
         TimeOnly startTime,
         TimeOnly endTime,
         int maximumNumberOfParticipants,
         Guid trainerId,
-        Guid? sessionId = null)
+        Guid? id = null)
     {
         _date = date;
         _startTime = startTime;
         _endTime = endTime;
         _maximumNumberOfParticipants = maximumNumberOfParticipants;
         _trainerId = trainerId;
-        _sessionId = sessionId ?? Guid.NewGuid();
+        Id = id ?? Guid.NewGuid();
     }
 
-    public void CancelReservation(Participant participant,
+    public ErrorOr<Success> CancelReservation(Participant participant,
         IDateTimeProvider dateTimeProvider)
     {
         if (IsTooCloseToSession(dateTimeProvider.UtcNow))
         {
-            throw new Exception("Cannot cancel reservation in less than 24 hours before session starts with current subscription");
+            return SessionErrors.CannotCancelReservationInLessThan24HoursBeforeSessionStarts;
         }
 
         if (!_participantIds.Remove(participant.ParticipantId))
         {
-            throw new Exception("Reservation does not exist");
+            return SessionErrors.ReservationDoesNotExist;
         }
+
+        return Result.Success;
     }
 
     public ErrorOr<Success> ReserveSpot(Participant participant)
     {
         if (_participantIds.Count >= _maximumNumberOfParticipants)
         {
-            return Error.Validation(description: "You cannot add more participants than available reservations in a session");
+            return SessionErrors.NoMoreFreeSlotsForReservation;
         }
 
         _participantIds.Add(participant.ParticipantId);

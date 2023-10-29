@@ -9,7 +9,7 @@ public static class SessionFactory
         TimeOnly? startTime = null,
         TimeOnly? endTime = null,
         int maximumNumberOfParticipants = TestConstants.Session.MAX_NUMBER_OF_PARTICIPANTS,
-        Guid? sessionId = null)
+        Guid? id = null)
     {
         return new Session(
             date: date ?? TestConstants.Session.Date,
@@ -17,6 +17,6 @@ public static class SessionFactory
             endTime: endTime ?? TestConstants.Session.EndTime,
             maximumNumberOfParticipants,
             trainerId: TestConstants.Trainer.Id,
-            sessionId: sessionId ?? TestConstants.Session.Id);
+            id: id ?? TestConstants.Session.Id);
     }
 }
