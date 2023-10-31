@@ -20,13 +20,13 @@ public class RoomTests
             currentSubscription: freeSubscription);
         var session1 = SessionFactory.CreateSession(
             date: TestConstants.Session.Date,
-            startTime: TestConstants.Session.StartTime,
-            endTime: TestConstants.Session.EndTime,
+            startTime: TestConstants.Session.StartTime1,
+            endTime: TestConstants.Session.EndTime1,
             id: Guid.NewGuid());
         var session2 = SessionFactory.CreateSession(
             date: TestConstants.Session.Date,
-            startTime: TestConstants.Session.StartTime,
-            endTime: TestConstants.Session.EndTime,
+            startTime: TestConstants.Session.StartTime2,
+            endTime: TestConstants.Session.EndTime2,
             id: Guid.NewGuid());
 
         // Act
@@ -44,15 +44,17 @@ public class RoomTests
     {
         // Arrange
         var premiumSubsciption = SubscriptionFactory.CreateSubscription(DomainConstants.PremiumSubscription);
+
+        // these two have overlapping session
         var session1 = SessionFactory.CreateSession(
             date: TestConstants.Session.Date,
-            startTime: TestConstants.Session.StartTime,
-            endTime: TestConstants.Session.EndTime,
+            startTime: TestConstants.Session.StartTime1,
+            endTime: TestConstants.Session.EndTime1,
             id: Guid.NewGuid());
         var session2 = SessionFactory.CreateSession(
             date: TestConstants.Session.Date,
-            startTime: TestConstants.Session.StartTime,
-            endTime: TestConstants.Session.EndTime,
+            startTime: TestConstants.Session.StartTime1,
+            endTime: TestConstants.Session.EndTime1,
             id: Guid.NewGuid());
         var room = RoomFactory.CreateRoom(id: Guid.NewGuid(),
             currentSubscription: premiumSubsciption);

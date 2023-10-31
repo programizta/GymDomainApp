@@ -13,8 +13,8 @@ public static class SessionFactory
     {
         return new Session(
             date: date ?? TestConstants.Session.Date,
-            startTime: startTime ?? TestConstants.Session.StartTime,
-            endTime: endTime ?? TestConstants.Session.EndTime,
+            startTime: startTime ?? TestConstants.Session.StartTime1,
+            endTime: endTime ?? TestConstants.Session.EndTime1,
             maximumNumberOfParticipants,
             trainerId: TestConstants.Trainer.Id,
             id: id ?? TestConstants.Session.Id);

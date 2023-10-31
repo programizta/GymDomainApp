@@ -10,15 +10,19 @@ public class SubscriptionDetails
 
     public int MaxNumberOfSessionsInRoom { get; }
 
+    public int MaxNumberOfGymsAllowed { get; }
+
     public SubscriptionDetails(
         string subscriptionName,
         int maxNumberOfGyms,
         int maxNumberOfRoomsInGym,
-        int maxNumberOfSessionsInRoom)
+        int maxNumberOfSessionsInRoom,
+        int maxNumberOfGymsAllowed)
     {
         SubscriptionName = subscriptionName;
         MaxNumberOfGyms = maxNumberOfGyms;
         MaxNumberOfRoomsInGym = maxNumberOfRoomsInGym;
         MaxNumberOfSessionsInRoom = maxNumberOfSessionsInRoom;
+        MaxNumberOfGymsAllowed = maxNumberOfGymsAllowed;
     }
 }

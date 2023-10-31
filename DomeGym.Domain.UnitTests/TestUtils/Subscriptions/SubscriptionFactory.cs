@@ -1,5 +1,4 @@
 using System;
-using DomeGym.Domain.Constants;
 
 namespace DomeGym.Domain.UnitTests.TestUtils.Subscriptions;
 

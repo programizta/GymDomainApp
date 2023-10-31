@@ -11,13 +11,15 @@ public static class DomainConstants
             subscriptionName: "Free subscription",
             maxNumberOfGyms: 1,
             maxNumberOfRoomsInGym: 1,
-            maxNumberOfSessionsInRoom: 1);
+            maxNumberOfSessionsInRoom: 1,
+            maxNumberOfGymsAllowed: 1);
 
     public static SubscriptionDetails PremiumSubscription =>
         new SubscriptionDetails(subscriptionName: "Premium subscription",
             maxNumberOfGyms: SYSTEM_VALUE,
             maxNumberOfRoomsInGym: SYSTEM_VALUE,
-            maxNumberOfSessionsInRoom: SYSTEM_VALUE);
+            maxNumberOfSessionsInRoom: SYSTEM_VALUE,
+            maxNumberOfGymsAllowed: SYSTEM_VALUE);
 
     public const int SYSTEM_VALUE = -1;
 }

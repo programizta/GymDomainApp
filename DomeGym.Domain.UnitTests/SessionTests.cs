@@ -37,8 +37,8 @@ public class SessionTests
     {
         // Arrange
         var session = SessionFactory.CreateSession(date: TestConstants.Session.Date,
-            startTime: TestConstants.Session.StartTime,
-            endTime: TestConstants.Session.EndTime,
+            startTime: TestConstants.Session.StartTime1,
+            endTime: TestConstants.Session.EndTime1,
             maximumNumberOfParticipants: 1);
         var subscription = SubscriptionFactory.CreateSubscription(DomainConstants.FreeSubscription);
         var participant = ParticipantFactory.CreateParticipant();

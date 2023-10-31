@@ -4,15 +4,15 @@ using ErrorOr;
 
 namespace DomeGym.Domain;
 
-public class Session
+public class Session : IHasId
 {
     private readonly Guid _trainerId;
     private readonly List<Guid> _participantIds = new List<Guid>();
-    private readonly DateOnly _date;
-    private readonly TimeOnly _startTime;
-    private readonly TimeOnly _endTime;
     private readonly int _maximumNumberOfParticipants;
 
+    public DateOnly Date { get; }
+    public TimeOnly StartTime { get; }
+    public TimeOnly EndTime { get; }
     public Guid Id { get; }
 
     public Session(DateOnly date,
@@ -22,9 +22,9 @@ public class Session
         Guid trainerId,
         Guid? id = null)
     {
-        _date = date;
-        _startTime = startTime;
-        _endTime = endTime;
+        Date = date;
+        StartTime = startTime;
+        EndTime = endTime;
         _maximumNumberOfParticipants = maximumNumberOfParticipants;
         _trainerId = trainerId;
         Id = id ?? Guid.NewGuid();
@@ -61,12 +61,12 @@ public class Session
     private bool IsTooCloseToSession(DateTime specifiedDateTime)
     {
         const int minimumNumberOfHours = 24;
-        var sessionDateTime = new DateTime(_date.Year,
-            _date.Month,
-            _date.Day,
-            _startTime.Hour,
-            _startTime.Minute,
-            _startTime.Second);
+        var sessionDateTime = new DateTime(Date.Year,
+            Date.Month,
+            Date.Day,
+            StartTime.Hour,
+            StartTime.Minute,
+            StartTime.Second);
 
         return (sessionDateTime - specifiedDateTime).TotalHours < minimumNumberOfHours;
     }
