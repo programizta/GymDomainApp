@@ -6,6 +6,6 @@ public static class TrainerFactory
 {
     public static Trainer CreateTrainer(Guid? userId = null)
     {
-        return new Trainer(userId: userId ?? Guid.NewGuid())
+        return new Trainer(userId: userId ?? Guid.NewGuid());
     }
 }

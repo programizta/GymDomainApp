@@ -15,6 +15,6 @@ public class TimeSlot
     public bool CanBookTimeSlot(TimeSlot eventToBeBooked)
     {
         return eventToBeBooked.EndTime <= StartTime
-            && eventToBeBooked.StartTime >= EndTime;
+            || eventToBeBooked.StartTime >= EndTime;
     }
 }
