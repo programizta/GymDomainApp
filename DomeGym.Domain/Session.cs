@@ -1,10 +1,11 @@
-﻿using DomeGym.Domain.ErrorCodes;
+﻿using DomeGym.Domain.Common;
+using DomeGym.Domain.ErrorCodes;
 using DomeGym.Domain.Interfaces;
 using ErrorOr;
 
 namespace DomeGym.Domain;
 
-public class Session : IHasId
+public class Session : EntityBase
 {
     private readonly Guid _trainerId;
     private readonly List<Guid> _participantIds = new List<Guid>();
@@ -13,7 +14,6 @@ public class Session : IHasId
     public DateOnly Date { get; }
     public TimeOnly StartTime { get; }
     public TimeOnly EndTime { get; }
-    public Guid Id { get; }
 
     public Session(DateOnly date,
         TimeOnly startTime,
@@ -21,13 +21,13 @@ public class Session : IHasId
         int maximumNumberOfParticipants,
         Guid trainerId,
         Guid? id = null)
+            : base(id ?? Guid.NewGuid())
     {
         Date = date;
         StartTime = startTime;
         EndTime = endTime;
         _maximumNumberOfParticipants = maximumNumberOfParticipants;
         _trainerId = trainerId;
-        Id = id ?? Guid.NewGuid();
     }
 
     public ErrorOr<Success> CancelReservation(Participant participant,

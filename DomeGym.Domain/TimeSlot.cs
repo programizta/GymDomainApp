@@ -1,6 +1,8 @@
+using DomeGym.Domain.Common;
+
 namespace DomeGym.Domain;
 
-public class TimeSlot
+public class TimeSlot : ValueObjectBase
 {
     public TimeOnly StartTime { get; }
 
@@ -16,5 +18,11 @@ public class TimeSlot
     {
         return eventToBeBooked.EndTime <= StartTime
             || eventToBeBooked.StartTime >= EndTime;
+    }
+
+    public override IEnumerable<object?> GetEqualityComponents()
+    {
+        yield return StartTime;
+        yield return EndTime;
     }
 }

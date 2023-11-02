@@ -1,16 +1,15 @@
+using DomeGym.Domain.Common;
 using DomeGym.Domain.Interfaces;
 
 namespace DomeGym.Domain;
 
-public class Schedule : IHasId
+public class Schedule : EntityBase
 {
     public Dictionary<DateOnly, List<TimeSlot>> TimeSlotsForDays { get; }
 
-    public Guid Id { get; }
-
     public Schedule(Guid id)
+        : base(id)
     {
-        Id = id;
         TimeSlotsForDays = new Dictionary<DateOnly, List<TimeSlot>>();
     }
 

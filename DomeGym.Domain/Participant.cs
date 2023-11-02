@@ -1,9 +1,10 @@
-﻿using DomeGym.Domain.ErrorCodes;
+﻿using DomeGym.Domain.Common;
+using DomeGym.Domain.ErrorCodes;
 using ErrorOr;
 
 namespace DomeGym.Domain;
 
-public class Participant
+public class Participant : EntityBase
 {
     private readonly Guid _userId;
     private readonly List<Guid> _sessionIds = new List<Guid>();
@@ -11,8 +12,8 @@ public class Participant
 
     public Guid ParticipantId { get; }
 
-    public Participant(Guid userId,
-        Guid? participantId = null)
+    public Participant(Guid userId, Guid? participantId = null)
+        : base(userId)
     {
         _userId = userId;
         ParticipantId = participantId ?? Guid.NewGuid();

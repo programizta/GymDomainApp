@@ -1,23 +1,22 @@
-﻿using DomeGym.Domain.Constants;
+﻿using DomeGym.Domain.Common;
+using DomeGym.Domain.Constants;
 using DomeGym.Domain.ErrorCodes;
 using DomeGym.Domain.Interfaces;
 using ErrorOr;
 
 namespace DomeGym.Domain;
-public class Subscription : IHasId
+public class Subscription : EntityBase
 {
     private readonly List<Guid> _gymIds = new List<Guid>();
 
     public SubscriptionDetails SubscriptionDetails { get; }
 
-    public Guid Id { get; }
-
     public Subscription(
         SubscriptionDetails subscriptionDetails,
         Guid? id = null)
+            : base(id ?? Guid.NewGuid())
     {
         SubscriptionDetails = subscriptionDetails;
-        Id = id ?? Guid.NewGuid();
     }
 
     public ErrorOr<Success> AssignGymToSubscription(Gym gym)

@@ -1,11 +1,12 @@
-﻿using DomeGym.Domain.Constants;
+﻿using DomeGym.Domain.Common;
+using DomeGym.Domain.Constants;
 using DomeGym.Domain.ErrorCodes;
 using DomeGym.Domain.Interfaces;
 using ErrorOr;
 
 namespace DomeGym.Domain;
 
-public class Room : IHasId
+public class Room : EntityBase
 {
     private readonly List<Guid> _sessionIds = new List<Guid>();
 
@@ -13,11 +14,9 @@ public class Room : IHasId
 
     private readonly int _maxNumberOfSessions;
 
-    public Guid Id { get; }
-
     public Room(Guid id, int maxNumberOfSessions)
+        : base(id)
     {
-        Id = id;
         _maxNumberOfSessions = maxNumberOfSessions;
         _schedule = new Schedule(id: Guid.NewGuid());
     }
