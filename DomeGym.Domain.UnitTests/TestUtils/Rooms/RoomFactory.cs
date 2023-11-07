@@ -1,4 +1,6 @@
 using System;
+using DomeGym.Domain.RoomAggregate;
+using DomeGym.Domain.SubscriptionAggregate;
 
 namespace DomeGym.Domain.UnitTests.TestUtils.Rooms;
 
@@ -8,7 +10,7 @@ public static class RoomFactory
         Subscription currentSubscription,
         Guid? id = null)
     {
-        return new Room(id: id ?? TestConstants.Room.Id,
-            maxNumberOfSessions: currentSubscription.SubscriptionDetails.MaxNumberOfSessionsInRoom);
+        return new Room(maxNumberOfSessions: currentSubscription.SubscriptionDetails.MaxNumberOfSessionsInRoom,
+            roomId: id ?? TestConstants.Room.Id);
     }
 }

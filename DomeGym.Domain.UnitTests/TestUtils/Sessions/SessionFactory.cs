@@ -1,4 +1,5 @@
 using System;
+using DomeGym.Domain.SessionAggregate;
 
 namespace DomeGym.Domain.UnitTests.TestUtils.Sessions;
 
@@ -17,6 +18,6 @@ public static class SessionFactory
             endTime: endTime ?? TestConstants.Session.EndTime1,
             maximumNumberOfParticipants,
             trainerId: TestConstants.Trainer.Id,
-            id: id ?? TestConstants.Session.Id);
+            sessionId: id ?? TestConstants.Session.Id);
     }
 }

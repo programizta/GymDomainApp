@@ -1,5 +1,5 @@
 using System;
-using DomeGym.Domain.Interfaces;
+using DomeGym.Domain.Common.Interfaces;
 
 namespace DomeGym.Domain.UnitTests.TestUtils.Services;
 

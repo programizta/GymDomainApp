@@ -1,4 +1,5 @@
 using System;
+using DomeGym.Domain.GymAggregate;
 
 namespace DomeGym.Domain.UnitTests.TestUtils.Gyms;
 
@@ -8,6 +9,6 @@ public static class GymFactory
         int maxNumberOfRooms,
         Guid? id = null)
     {
-        return new Gym(id: id ?? TestConstants.Gym.Id, maxNumberOfRooms: maxNumberOfRooms);
+        return new Gym(maxNumberOfRooms: maxNumberOfRooms, gymId: id ?? TestConstants.Gym.Id);
     }
 }

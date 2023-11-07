@@ -1,4 +1,5 @@
 using System;
+using DomeGym.Domain.SubscriptionAggregate;
 
 namespace DomeGym.Domain.UnitTests.TestUtils.Subscriptions;
 
@@ -10,6 +11,6 @@ public static class SubscriptionFactory
     {
         return new Subscription(
             subscriptionDetails: subscriptionDetails,
-            id: id ?? TestConstants.Subscription.Id);
+            subscriptionId: id ?? TestConstants.Subscription.Id);
     }
 }
