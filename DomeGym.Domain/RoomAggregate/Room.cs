@@ -25,11 +25,6 @@ public class Room : AggregateRoot
 
     public ErrorOr<Success> AddSession(Session session)
     {
-        if (session.StartTime >= session.EndTime)
-        {
-            return GeneralErrors.TimeInvalid;
-        }
-
         // if user has got premium subscription or number of sessions in room doesn't exceed the number
         // constrained by subscription, he should be able to add the session to the room
         if (_maxNumberOfSessions != DomainConstants.SYSTEM_VALUE

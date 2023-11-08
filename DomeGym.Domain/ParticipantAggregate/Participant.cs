@@ -22,11 +22,6 @@ public class Participant : AggregateRoot
 
     public ErrorOr<Success> AssignSession(Session session)
     {
-        if (session.StartTime >= session.EndTime)
-        {
-            return GeneralErrors.TimeInvalid;
-        }
-
         if (IsOverlappingSession(session))
         {
             return ParticipantErrors.CannotAssignToOverlappingSession;

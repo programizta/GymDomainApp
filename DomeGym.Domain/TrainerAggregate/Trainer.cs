@@ -22,11 +22,6 @@ public class Trainer : AggregateRoot
 
     public ErrorOr<Success> AssignSession(Session session)
     {
-        if (session.StartTime >= session.EndTime)
-        {
-            return GeneralErrors.TimeInvalid;
-        }
-
         if (IsSessionOverlapping(session))
         {
             return TrainerErrors.CannotAssignOverlappingSessionToTrainer;
