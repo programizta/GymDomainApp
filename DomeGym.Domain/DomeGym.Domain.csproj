@@ -12,8 +12,4 @@
     <PackageReference Include="ErrorOr" Version="1.3.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DomeGym.Application\DomeGym.Application.csproj" />
-  </ItemGroup>
-
 </Project>

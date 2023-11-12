@@ -1,4 +1,7 @@
 namespace DomeGym.Infrastructure;
+
+using DomeGym.Application.Common.Interfaces;
+using DomeGym.Infrastructure.Persistence.Subscription;
 using Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjectionConfiguration
@@ -10,6 +13,7 @@ public static class DependencyInjectionConfiguration
     /// </summary>
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
+        services.AddScoped(typeof(ISubscriptionRespository), typeof(SubscriptionRepository));
         return services;
     }
 }

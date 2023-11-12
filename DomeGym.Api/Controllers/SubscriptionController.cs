@@ -17,13 +17,19 @@ public class SubscriptionController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateSubscription(CreateSubscriptionRequest request)
+    public async Task<IActionResult> CreateSubscription(SubscriptionRequest request)
     {
         var command = new CreateSubscriptionCommand(
             request.SubscriptionType.ToString(),
             request.AdminId);
-        var subscriptionId = await _mediator.Send(command);
-        var response = new SubscriptionResponse(subscriptionId, request.SubscriptionType);
+        var createSubscriptionResult = await _mediator.Send(command);
+
+        if (createSubscriptionResult.IsError)
+        {
+            return Problem();
+        }
+
+        var response = new SubscriptionResponse(createSubscriptionResult.Value.Id, request.SubscriptionType);
 
         return Ok(response);
     }
