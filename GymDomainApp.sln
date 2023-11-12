@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomeGym.Application", "Dome
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomeGym.Domain.UnitTests", "DomeGym.Domain.UnitTests\DomeGym.Domain.UnitTests.csproj", "{396A84E6-484C-4A57-95B8-0CB9204FD7C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomeGym.Api", "DomeGym.Api\DomeGym.Api.csproj", "{CB59686C-15B2-45CD-80A5-29F083BF5AD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomeGym.Contracts", "DomeGym.Contracts\DomeGym.Contracts.csproj", "{062544CD-DD4E-4D2E-A74B-474DB0609089}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomeGym.Infrastructure", "DomeGym.Infrastructure\DomeGym.Infrastructure.csproj", "{4FF7B4FE-87FB-419F-A270-CEFF7A470A60}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,5 +40,21 @@ Global
 		{396A84E6-484C-4A57-95B8-0CB9204FD7C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{396A84E6-484C-4A57-95B8-0CB9204FD7C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{396A84E6-484C-4A57-95B8-0CB9204FD7C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB59686C-15B2-45CD-80A5-29F083BF5AD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB59686C-15B2-45CD-80A5-29F083BF5AD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB59686C-15B2-45CD-80A5-29F083BF5AD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB59686C-15B2-45CD-80A5-29F083BF5AD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A75D5F0-77F5-4968-B44F-6789CD1852FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A75D5F0-77F5-4968-B44F-6789CD1852FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A75D5F0-77F5-4968-B44F-6789CD1852FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A75D5F0-77F5-4968-B44F-6789CD1852FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{062544CD-DD4E-4D2E-A74B-474DB0609089}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{062544CD-DD4E-4D2E-A74B-474DB0609089}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{062544CD-DD4E-4D2E-A74B-474DB0609089}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{062544CD-DD4E-4D2E-A74B-474DB0609089}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FF7B4FE-87FB-419F-A270-CEFF7A470A60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FF7B4FE-87FB-419F-A270-CEFF7A470A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FF7B4FE-87FB-419F-A270-CEFF7A470A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FF7B4FE-87FB-419F-A270-CEFF7A470A60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
