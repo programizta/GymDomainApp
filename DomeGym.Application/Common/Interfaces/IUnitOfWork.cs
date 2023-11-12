@@ -2,7 +2,7 @@ using SubscriptionEntity = DomeGym.Domain.SubscriptionAggregate.Subscription;
 
 namespace DomeGym.Application.Common.Interfaces;
 
-public interface ISubscriptionRespository
+public interface IUnitOfWork
 {
-    Task AddSubscriptionAsync(SubscriptionEntity subscriptionEntity);
+    Task CommitChangesAsync();
 }

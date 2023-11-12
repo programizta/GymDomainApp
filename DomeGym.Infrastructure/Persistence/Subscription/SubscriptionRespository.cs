@@ -5,7 +5,7 @@ namespace DomeGym.Infrastructure.Persistence.Subscription;
 
 public class SubscriptionRepository : ISubscriptionRespository
 {
-    public Task CreateSubscriptionAsync(SubscriptionEntity subscriptionEntity)
+    public Task AddSubscriptionAsync(SubscriptionEntity subscriptionEntity)
     {
         return Task.CompletedTask;
     }
