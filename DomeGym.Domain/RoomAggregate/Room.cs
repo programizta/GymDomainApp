@@ -1,7 +1,6 @@
 ﻿using DomeGym.Domain.Common;
 using DomeGym.Domain.Common.Constants;
 using DomeGym.Domain.Common.Entities;
-using DomeGym.Domain.Common.ErrorCodes;
 using DomeGym.Domain.Common.ValueObjects;
 using DomeGym.Domain.SessionAggregate;
 using ErrorOr;
@@ -10,25 +9,32 @@ namespace DomeGym.Domain.RoomAggregate;
 
 public class Room : AggregateRoot
 {
-    private readonly List<Guid> _sessionIds = new List<Guid>();
+    public List<Guid> SessionIds { get; }
 
-    private readonly Schedule _schedule;
+    public Schedule Schedule { get; private set; }
 
-    private readonly int _maxNumberOfSessions;
+    public int MaxNumberOfSessions { get; private set; }
+
+    public Room()
+     : base(Guid.NewGuid())
+    {
+
+    }
 
     public Room(int maxNumberOfSessions, Guid? roomId = null)
         : base(roomId ?? Guid.NewGuid())
     {
-        _maxNumberOfSessions = maxNumberOfSessions;
-        _schedule = new Schedule(scheduleId: Guid.NewGuid());
+        MaxNumberOfSessions = maxNumberOfSessions;
+        Schedule = new Schedule(scheduleId: Guid.NewGuid());
+        SessionIds = new List<Guid>(MaxNumberOfSessions);
     }
 
     public ErrorOr<Success> AddSession(Session session)
     {
         // if user has got premium subscription or number of sessions in room doesn't exceed the number
         // constrained by subscription, he should be able to add the session to the room
-        if (_maxNumberOfSessions != DomainConstants.SYSTEM_VALUE
-            && _maxNumberOfSessions <= _sessionIds.Count)
+        if (MaxNumberOfSessions != DomainConstants.SYSTEM_VALUE
+            && MaxNumberOfSessions <= SessionIds.Count)
         {
             return RoomErrors.CannotAssignMoreSessionsToRoomWithCurrentSubscription;
         }
@@ -38,11 +44,11 @@ public class Room : AggregateRoot
             return RoomErrors.CannotAssignToRoomOverlappingSession;
         }
 
-        _schedule.BookSession(
+        Schedule.BookSession(
             date: session.Date,
             startTime: session.StartTime,
             endTime: session.EndTime);
-        _sessionIds.Add(session.Id);
+        SessionIds.Add(session.Id);
 
         return Result.Success;
     }
@@ -50,7 +56,7 @@ public class Room : AggregateRoot
     private bool IsSessionOverlapping(Session session)
     {
         // if there are no sessions booked for this date, return true immediately
-        if (!_schedule.TimeSlotsForDays.TryGetValue(session.Date, out var timeSlots))
+        if (!Schedule.TimeSlotsForDays.TryGetValue(session.Date, out var timeSlots))
         {
             return false;
         }

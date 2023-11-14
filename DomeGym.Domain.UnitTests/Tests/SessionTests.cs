@@ -17,10 +17,8 @@ public class SessionTests
     {
         // Arrange
         var session = SessionFactory.CreateSession(maximumNumberOfParticipants: 1);
-        var participant1 = ParticipantFactory.CreateParticipant(userId: Guid.NewGuid(),
-            participantId: Guid.NewGuid());
-        var participant2 = ParticipantFactory.CreateParticipant(userId: Guid.NewGuid(),
-            participantId: Guid.NewGuid());
+        var participant1 = ParticipantFactory.CreateParticipant(participantId: Guid.NewGuid());
+        var participant2 = ParticipantFactory.CreateParticipant(participantId: Guid.NewGuid());
 
         // Act
         var participant1ReservationResult = session.ReserveSpot(participant1);

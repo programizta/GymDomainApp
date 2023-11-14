@@ -14,7 +14,6 @@ public class ParticipantTests
     {
         // Arrange
         var participant = ParticipantFactory.CreateParticipant(
-            userId: Guid.NewGuid(),
             participantId: Guid.NewGuid());
         var session1 = SessionFactory.CreateSession(
             date: TestConstants.Session.Date,

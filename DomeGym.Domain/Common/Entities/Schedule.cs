@@ -1,4 +1,4 @@
-
+using System.ComponentModel.DataAnnotations.Schema;
 using DomeGym.Domain.Common.ValueObjects;
 
 namespace DomeGym.Domain.Common.Entities;
@@ -6,6 +6,12 @@ namespace DomeGym.Domain.Common.Entities;
 public class Schedule : EntityBase
 {
     public Dictionary<DateOnly, List<TimeSlot>> TimeSlotsForDays { get; }
+
+    public Schedule()
+     : base(Guid.NewGuid())
+    {
+        
+    }
 
     public Schedule(Guid? scheduleId = null)
         : base(scheduleId ?? Guid.NewGuid())

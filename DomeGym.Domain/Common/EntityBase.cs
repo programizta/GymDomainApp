@@ -4,7 +4,7 @@ namespace DomeGym.Domain.Common;
 
 public abstract class EntityBase : IHasId
 {
-    public Guid Id { get; }
+    public Guid Id { get; private set; }
 
     public EntityBase(Guid id)
     {

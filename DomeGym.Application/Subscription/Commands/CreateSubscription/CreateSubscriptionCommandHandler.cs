@@ -10,12 +10,12 @@ public class CreateSubscriptionCommandHandler
     : IRequestHandler<CreateSubscriptionCommand, ErrorOr<SubscriptionEntity>>
 {
     private readonly ISubscriptionRespository _subscriptionRespository;
-    private readonly IUnitOfWork _unitOfWork;
+    //private readonly IUnitOfWork _unitOfWork;
 
-    public CreateSubscriptionCommandHandler(ISubscriptionRespository subscriptionRespository, IUnitOfWork unitOfWork)
+    public CreateSubscriptionCommandHandler(ISubscriptionRespository subscriptionRespository/*, IUnitOfWork unitOfWork*/)
     {
         _subscriptionRespository = subscriptionRespository;
-        _unitOfWork = unitOfWork;
+        //_unitOfWork = unitOfWork;
     }
 
     public async Task<ErrorOr<SubscriptionEntity>> Handle(CreateSubscriptionCommand request, CancellationToken cancellationToken)
@@ -25,7 +25,7 @@ public class CreateSubscriptionCommandHandler
 
         // TODO: inside "CreateSubscriptionAsync" implement validation on DomainKey
         await _subscriptionRespository.AddSubscriptionAsync(subscriptionToSave);
-        await _unitOfWork.CommitChangesAsync();
+        //await _unitOfWork.CommitChangesAsync();
 
         return subscriptionToSave;
     }

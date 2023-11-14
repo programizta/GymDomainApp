@@ -10,14 +10,14 @@ public static class DomainConstants
 {
     public static SubscriptionDetails FreeSubscription =>
         new SubscriptionDetails(
-            subscriptionName: "Free subscription",
+            subscriptionName: "Free",
             maxNumberOfGyms: 1,
             maxNumberOfRoomsInGym: 1,
             maxNumberOfSessionsInRoom: 1,
             maxNumberOfGymsAllowed: 1);
 
     public static SubscriptionDetails PremiumSubscription =>
-        new SubscriptionDetails(subscriptionName: "Premium subscription",
+        new SubscriptionDetails(subscriptionName: "Premium",
             maxNumberOfGyms: SYSTEM_VALUE,
             maxNumberOfRoomsInGym: SYSTEM_VALUE,
             maxNumberOfSessionsInRoom: SYSTEM_VALUE,

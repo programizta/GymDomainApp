@@ -17,7 +17,6 @@ public static class SessionFactory
             startTime: startTime ?? TestConstants.Session.StartTime1,
             endTime: endTime ?? TestConstants.Session.EndTime1,
             maximumNumberOfParticipants,
-            trainerId: TestConstants.Trainer.Id,
             sessionId: id ?? TestConstants.Session.Id);
     }
 }

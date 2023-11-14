@@ -7,27 +7,34 @@ namespace DomeGym.Domain.SessionAggregate;
 
 public class Session : AggregateRoot
 {
-    private readonly Guid _trainerId;
-    private readonly List<Reservation> _reservations = new();
-    private readonly int _maximumNumberOfParticipants;
+    public List<Reservation> Reservations { get; }
 
-    public DateOnly Date { get; }
+    public int MaximumNumberOfParticipants { get; private set; }
+
+    public DateOnly Date { get; private set; }
+
     public TimeOnly StartTime { get; }
-    public TimeOnly EndTime { get; }
+
+    public TimeOnly EndTime { get; private set; }
+
+    public Session()
+     : base(Guid.NewGuid())
+    {
+        
+    }
 
     public Session(DateOnly date,
         TimeOnly startTime,
         TimeOnly endTime,
         int maximumNumberOfParticipants,
-        Guid trainerId,
         Guid? sessionId = null)
             : base(sessionId ?? Guid.NewGuid())
     {
+        Reservations = new();
         Date = date;
         StartTime = startTime;
         EndTime = endTime;
-        _maximumNumberOfParticipants = maximumNumberOfParticipants;
-        _trainerId = trainerId;
+        MaximumNumberOfParticipants = maximumNumberOfParticipants;
     }
 
     public ErrorOr<Success> CancelReservation(Participant participant,
@@ -38,27 +45,27 @@ public class Session : AggregateRoot
             return SessionErrors.CannotCancelReservationInLessThan24HoursBeforeSessionStarts;
         }
 
-        var reservation = _reservations.FirstOrDefault(x => x.ParticipantId == participant.Id);
+        var reservation = Reservations.FirstOrDefault(x => x.ParticipantId == participant.Id);
 
         if (reservation is null)
         {
             return SessionErrors.ReservationDoesNotExist;
         }
 
-        _reservations.Remove(reservation);
+        Reservations.Remove(reservation);
 
         return Result.Success;
     }
 
     public ErrorOr<Success> ReserveSpot(Participant participant)
     {
-        if (_reservations.Count >= _maximumNumberOfParticipants)
+        if (Reservations.Count >= MaximumNumberOfParticipants)
         {
             return SessionErrors.NoMoreFreeSlotsForReservation;
         }
 
         var newReservation = new Reservation(participant.Id);
-        _reservations.Add(newReservation);
+        Reservations.Add(newReservation);
 
         return Result.Success;
     }

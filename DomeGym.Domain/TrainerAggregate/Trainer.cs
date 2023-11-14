@@ -1,6 +1,5 @@
 ﻿using DomeGym.Domain.Common;
 using DomeGym.Domain.Common.Entities;
-using DomeGym.Domain.Common.ErrorCodes;
 using DomeGym.Domain.Common.ValueObjects;
 using DomeGym.Domain.SessionAggregate;
 using ErrorOr;
@@ -9,15 +8,20 @@ namespace DomeGym.Domain.TrainerAggregate;
 
 public class Trainer : AggregateRoot
 {
-    private readonly Guid _userId;
-    private readonly List<Guid> _sessionIds = new List<Guid>();
-    private readonly Schedule _trainersSchedule;
+    public List<Guid> SessionIds { get; }
 
-    public Trainer(Guid userId, Guid? trainerId = null)
+    public Schedule TrainersSchedule { get; private set; }
+
+    public Trainer()
+     : base(Guid.NewGuid())
+    {
+
+    }
+
+    public Trainer(Guid? trainerId = null)
         : base(trainerId ?? Guid.NewGuid())
     {
-        _userId = userId;
-        _trainersSchedule = new Schedule(userId);
+        TrainersSchedule = new Schedule(scheduleId: Guid.NewGuid());
     }
 
     public ErrorOr<Success> AssignSession(Session session)
@@ -27,8 +31,8 @@ public class Trainer : AggregateRoot
             return TrainerErrors.CannotAssignOverlappingSessionToTrainer;
         }
 
-        _trainersSchedule.BookSession(session.Date, session.StartTime, session.EndTime);
-        _sessionIds.Add(session.Id);
+        TrainersSchedule.BookSession(session.Date, session.StartTime, session.EndTime);
+        SessionIds.Add(session.Id);
 
         return Result.Success;
     }
@@ -36,7 +40,7 @@ public class Trainer : AggregateRoot
     private bool IsSessionOverlapping(Session session)
     {
         // if there is no already booked session for this day, return false immediately (no overlap)
-        if (!_trainersSchedule.TimeSlotsForDays.TryGetValue(session.Date, out var timeSlots))
+        if (!TrainersSchedule.TimeSlotsForDays.TryGetValue(session.Date, out var timeSlots))
         {
             return false;
         }

@@ -7,7 +7,6 @@ public static class TrainerFactory
 {
     public static Trainer CreateTrainer(Guid? userId = null)
     {
-        return new Trainer(userId: userId ?? Guid.NewGuid(),
-            trainerId: TestConstants.Trainer.Id);
+        return new Trainer(trainerId: TestConstants.Trainer.Id);
     }
 }

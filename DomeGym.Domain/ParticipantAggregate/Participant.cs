@@ -1,6 +1,5 @@
 ﻿using DomeGym.Domain.Common;
 using DomeGym.Domain.Common.Entities;
-using DomeGym.Domain.Common.ErrorCodes;
 using DomeGym.Domain.Common.ValueObjects;
 using DomeGym.Domain.SessionAggregate;
 using ErrorOr;
@@ -9,15 +8,21 @@ namespace DomeGym.Domain.ParticipantAggregate;
 
 public class Participant : AggregateRoot
 {
-    private readonly Guid _userId;
-    private readonly List<Guid> _sessionIds = new List<Guid>();
-    private readonly Schedule _schedule;
+    public List<Guid> SessionIds { get; }
+    
+    public Schedule Schedule { get; private set; }
 
-    public Participant(Guid userId, Guid? participantId = null)
+    public Participant()
+     : base(Guid.NewGuid())
+    {
+        Schedule = new Schedule(scheduleId: Guid.NewGuid());
+    }
+
+    public Participant(Guid? participantId = null)
         : base(participantId ?? Guid.NewGuid())
     {
-        _userId = userId;
-        _schedule = new Schedule(scheduleId: Guid.NewGuid());
+        SessionIds = new List<Guid>();
+        Schedule = new Schedule(scheduleId: Guid.NewGuid());
     }
 
     public ErrorOr<Success> AssignSession(Session session)
@@ -27,11 +32,11 @@ public class Participant : AggregateRoot
             return ParticipantErrors.CannotAssignToOverlappingSession;
         }
 
-        _schedule.BookSession(
+        Schedule.BookSession(
             date: session.Date,
             startTime: session.StartTime,
             endTime: session.EndTime);
-        _sessionIds.Add(session.Id);
+        SessionIds.Add(session.Id);
 
         return Result.Success;
     }
@@ -39,7 +44,7 @@ public class Participant : AggregateRoot
     private bool IsOverlappingSession(Session session)
     {
         // if for a specified day there are no sessions already scheduled, return false immediately
-        if (!_schedule.TimeSlotsForDays.TryGetValue(session.Date, out var timeSlots))
+        if (!Schedule.TimeSlotsForDays.TryGetValue(session.Date, out var timeSlots))
         {
             return false;
         }
