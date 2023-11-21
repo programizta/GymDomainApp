@@ -3,6 +3,7 @@ using System;
 using DomeGym.Infrastructure.Common.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DomeGym.Infrastructure.Migrations
 {
     [DbContext(typeof(DomeGymDbContext))]
-    partial class DomeGymDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231121204408_RemovedUnusedSubscriptionTypeProperty")]
+    partial class RemovedUnusedSubscriptionTypeProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
@@ -158,26 +161,6 @@ namespace DomeGym.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SubscriptionDetails");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("f1e069da-c0cc-4a26-a1a9-90a4cc767394"),
-                            MaxNumberOfGyms = 1,
-                            MaxNumberOfGymsAllowed = 1,
-                            MaxNumberOfRoomsInGym = 1,
-                            MaxNumberOfSessionsInRoom = 1,
-                            SubscriptionName = "Free"
-                        },
-                        new
-                        {
-                            Id = new Guid("60829e92-8a55-48a3-95f8-d5a3510eee3e"),
-                            MaxNumberOfGyms = -1,
-                            MaxNumberOfGymsAllowed = -1,
-                            MaxNumberOfRoomsInGym = -1,
-                            MaxNumberOfSessionsInRoom = -1,
-                            SubscriptionName = "Premium"
-                        });
                 });
 
             modelBuilder.Entity("DomeGym.Domain.TrainerAggregate.Trainer", b =>

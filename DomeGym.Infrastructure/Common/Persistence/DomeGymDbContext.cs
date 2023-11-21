@@ -41,6 +41,11 @@ public class DomeGymDbContext : DbContext, IUnitOfWork
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        modelBuilder.Entity<SubscriptionDetails>().HasData(
+            new SubscriptionDetails("Free", 1, 1, 1, 1),
+            new SubscriptionDetails("Premium", -1, -1, -1, -1)
+        );
     }
 
     public Task CommitChangesAsync()

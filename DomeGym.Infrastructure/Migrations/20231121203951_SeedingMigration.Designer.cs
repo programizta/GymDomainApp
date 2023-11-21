@@ -3,6 +3,7 @@ using System;
 using DomeGym.Infrastructure.Common.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DomeGym.Infrastructure.Migrations
 {
     [DbContext(typeof(DomeGymDbContext))]
-    partial class DomeGymDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231121203951_SeedingMigration")]
+    partial class SeedingMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
@@ -127,6 +130,10 @@ namespace DomeGym.Infrastructure.Migrations
                     b.Property<Guid>("SubscriptionDetailsId")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("SubscriptionTypeName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SubscriptionDetailsId");
@@ -162,7 +169,7 @@ namespace DomeGym.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f1e069da-c0cc-4a26-a1a9-90a4cc767394"),
+                            Id = new Guid("380428d2-ecf5-437a-b725-d580b00784ac"),
                             MaxNumberOfGyms = 1,
                             MaxNumberOfGymsAllowed = 1,
                             MaxNumberOfRoomsInGym = 1,
@@ -171,7 +178,7 @@ namespace DomeGym.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("60829e92-8a55-48a3-95f8-d5a3510eee3e"),
+                            Id = new Guid("24b574ca-faf7-4555-af7f-b1011d9b1160"),
                             MaxNumberOfGyms = -1,
                             MaxNumberOfGymsAllowed = -1,
                             MaxNumberOfRoomsInGym = -1,

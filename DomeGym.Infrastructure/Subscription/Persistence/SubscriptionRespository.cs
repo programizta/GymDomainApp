@@ -2,6 +2,7 @@ using SubscriptionEntity = DomeGym.Domain.SubscriptionAggregate.Subscription;
 using DomeGym.Application.Common.Interfaces;
 using DomeGym.Infrastructure.Common.Persistence;
 using Microsoft.EntityFrameworkCore;
+using DomeGym.Domain.SubscriptionAggregate;
 
 namespace DomeGym.Infrastructure.Subscription.Persistence;
 
@@ -29,10 +30,13 @@ public class SubscriptionRepository : ISubscriptionRespository
 
             if (subscriptionDetailsToHydrateSubscription is not null)
             {
-                subscription.FillSubscriptionWithDetails(subscriptionDetailsToHydrateSubscription);
+                subscription.AssignDetailsToSubscription(subscriptionDetailsToHydrateSubscription);
             }
         }
 
         return subscription;
     }
+
+    public Task<SubscriptionDetails?> GetSubscriptionDetailsByName(string subscriptionName) =>
+        _dbContext.SubscriptionDetails.FirstOrDefaultAsync(x => x.SubscriptionName == subscriptionName);
 }

@@ -20,6 +20,9 @@ public class SubscriptionsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateSubscription(SubscriptionRequest request)
     {
+        // TODO: implement discrete-enum type of SubscriptionType instead of passing a string
+        // to command, as we should know up-front what subscription types are valid for further
+        // processing
         var command = new CreateSubscriptionCommand(
             request.SubscriptionType.ToString(),
             request.AdminId);

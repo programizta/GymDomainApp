@@ -47,7 +47,7 @@ public class Subscription : AggregateRoot
         return Result.Success;
     }
 
-    public void FillSubscriptionWithDetails(SubscriptionDetails subscriptionDetails)
+    public void AssignDetailsToSubscription(SubscriptionDetails subscriptionDetails)
     {
         SubscriptionDetails = subscriptionDetails;
     }

@@ -22,7 +22,8 @@ public class CreateSubscriptionCommandHandler
     public async Task<ErrorOr<SubscriptionEntity>> Handle(CreateSubscriptionCommand request, CancellationToken cancellationToken)
     {
         // TODO: temporarily check here if the request is having either 'Free' or 'Premium' subscription
-        var subscriptionToSave = new SubscriptionEntity(request.SubscriptionType == SubscriptionType.FreeSubscription.Name ? DomainConstants.FreeSubscription : DomainConstants.PremiumSubscription, request.AdminId);
+        var subscriptionType = await _subscriptionRespository.GetSubscriptionDetailsByName(request.SubscriptionType);
+        var subscriptionToSave = new SubscriptionEntity(subscriptionType, request.AdminId);
 
         // TODO: inside "CreateSubscriptionAsync" implement validation on DomainKey
         await _subscriptionRespository.AddSubscriptionAsync(subscriptionToSave);
