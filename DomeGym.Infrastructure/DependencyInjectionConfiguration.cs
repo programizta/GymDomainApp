@@ -17,6 +17,8 @@ public static class DependencyInjectionConfiguration
     {
         services.AddDbContext<DomeGymDbContext>(options => options.UseSqlite("Data Source = DomeGym.db"));
         services.AddScoped(typeof(ISubscriptionRespository), typeof(SubscriptionRepository));
+        services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<DomeGymDbContext>());
+
         return services;
     }
 }

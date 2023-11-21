@@ -4,9 +4,14 @@ using DomeGym.Domain.GymAggregate;
 using ErrorOr;
 
 namespace DomeGym.Domain.SubscriptionAggregate;
+
 public class Subscription : AggregateRoot
 {
     public List<Guid> GymIds { get; }
+
+    public Guid AdminId { get; private set; }
+
+    public Guid SubscriptionDetailsId { get; private set; }
 
     public SubscriptionDetails SubscriptionDetails { get; private set; }
 
@@ -16,11 +21,15 @@ public class Subscription : AggregateRoot
         
     }
 
-    public Subscription(SubscriptionDetails subscriptionDetails, Guid? subscriptionId = null)
+    public Subscription(
+        SubscriptionDetails subscriptionDetails,
+        Guid adminId,
+        Guid? subscriptionId = null)
         : base(subscriptionId ?? Guid.NewGuid())
     {
         GymIds = new();
         SubscriptionDetails = subscriptionDetails;
+        AdminId = adminId;
     }
 
     public ErrorOr<Success> AssignGymToSubscription(Gym gym)
@@ -36,5 +45,10 @@ public class Subscription : AggregateRoot
         GymIds.Add(gym.Id);
 
         return Result.Success;
+    }
+
+    public void FillSubscriptionWithDetails(SubscriptionDetails subscriptionDetails)
+    {
+        SubscriptionDetails = subscriptionDetails;
     }
 }

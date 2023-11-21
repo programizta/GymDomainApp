@@ -1,4 +1,4 @@
 @host=http://localhost:5138
-@subscriptionId=4d320749-f79d-453b-8f9b-e30956715cbc
+@subscriptionId=998e09f4-7a07-42a7-ab27-029c2b9ae3e4
 
 GET {{host}}/Subscriptions/{{subscriptionId}}

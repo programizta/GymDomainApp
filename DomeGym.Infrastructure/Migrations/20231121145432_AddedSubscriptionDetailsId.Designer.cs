@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DomeGym.Infrastructure.Migrations
 {
     [DbContext(typeof(DomeGymDbContext))]
-    [Migration("20231114213318_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20231121145432_AddedSubscriptionDetailsId")]
+    partial class AddedSubscriptionDetailsId
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -123,6 +123,9 @@ namespace DomeGym.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("AdminId")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("SubscriptionDetailsId")

@@ -10,12 +10,9 @@ public class GetSubscriptionQueryHandler : IRequestHandler<GetSubscriptionQuery,
 {
     private readonly ISubscriptionRespository _subscriptionRespository;
 
-    //private readonly IUnitOfWork _unitOfWork;
-
-    public GetSubscriptionQueryHandler(ISubscriptionRespository subscriptionRespository/*, IUnitOfWork unitOfWork*/)
+    public GetSubscriptionQueryHandler(ISubscriptionRespository subscriptionRespository)
     {
         _subscriptionRespository = subscriptionRespository;
-        //_unitOfWork = unitOfWork;
     }
 
     public async Task<ErrorOr<SubscriptionEntity>> Handle(GetSubscriptionQuery request, CancellationToken cancellationToken)

@@ -22,7 +22,7 @@ public class SubscriptionsController : ControllerBase
     {
         var command = new CreateSubscriptionCommand(
             request.SubscriptionType.ToString(),
-            request.Id);
+            request.AdminId);
         var createSubscriptionResult = await _mediator.Send(command);
 
         if (createSubscriptionResult.IsError)
@@ -45,7 +45,7 @@ public class SubscriptionsController : ControllerBase
         {
             return Problem();
         }
-
+        
         var response = new SubscriptionResponse(
             subscriptionId,
             Enum.Parse<SubscriptionType>(getSubscriptionResult.Value.SubscriptionDetails.SubscriptionName));

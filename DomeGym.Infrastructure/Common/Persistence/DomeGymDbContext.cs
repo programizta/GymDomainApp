@@ -7,10 +7,11 @@ using SubscriptionEntity = DomeGym.Domain.SubscriptionAggregate.Subscription;
 using Microsoft.EntityFrameworkCore;
 using DomeGym.Domain.TrainerAggregate;
 using DomeGym.Domain.SubscriptionAggregate;
+using DomeGym.Application.Common.Interfaces;
 
 namespace DomeGym.Infrastructure.Common.Persistence;
 
-public class DomeGymDbContext : DbContext
+public class DomeGymDbContext : DbContext, IUnitOfWork
 {
     public DbSet<Schedule> Schedules { get; set; } = null!;
 
@@ -34,5 +35,10 @@ public class DomeGymDbContext : DbContext
         : base(options)
     {
         
+    }
+
+    public Task CommitChangesAsync()
+    {
+        return base.SaveChangesAsync();
     }
 }

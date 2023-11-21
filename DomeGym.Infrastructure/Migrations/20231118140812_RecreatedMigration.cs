@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DomeGym.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class RecreatedMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -142,6 +142,7 @@ namespace DomeGym.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    AdminId = table.Column<Guid>(type: "TEXT", nullable: false),
                     SubscriptionDetailsId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>

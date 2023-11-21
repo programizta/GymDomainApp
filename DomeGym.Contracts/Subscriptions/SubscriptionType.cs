@@ -8,5 +8,6 @@ namespace DomeGym.Contracts.Subscriptions;
 public enum SubscriptionType
 {
     Free,
+    
     Premium
 }

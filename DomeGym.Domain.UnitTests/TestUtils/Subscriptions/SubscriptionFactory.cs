@@ -11,6 +11,7 @@ public static class SubscriptionFactory
     {
         return new Subscription(
             subscriptionDetails: subscriptionDetails,
+            adminId: id ?? TestConstants.Admin.Id,
             subscriptionId: id ?? TestConstants.Subscription.Id);
     }
 }

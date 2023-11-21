@@ -21,14 +21,14 @@ public class SubscriptionDetails : EntityBase
     }
 
     public SubscriptionDetails(
-        string subscriptionName,
+        string subscriptionType,
         int maxNumberOfGyms,
         int maxNumberOfRoomsInGym,
         int maxNumberOfSessionsInRoom,
         int maxNumberOfGymsAllowed)
         : base(Guid.NewGuid())
     {
-        SubscriptionName = subscriptionName;
+        SubscriptionName = subscriptionType;
         MaxNumberOfGyms = maxNumberOfGyms;
         MaxNumberOfRoomsInGym = maxNumberOfRoomsInGym;
         MaxNumberOfSessionsInRoom = maxNumberOfSessionsInRoom;

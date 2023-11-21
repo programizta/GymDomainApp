@@ -1,3 +1,3 @@
 namespace DomeGym.Contracts.Subscriptions;
 
-public record SubscriptionRequest(Guid Id, SubscriptionType SubscriptionType);
+public record SubscriptionRequest(Guid AdminId, SubscriptionType SubscriptionType);
