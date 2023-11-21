@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DomeGym.Domain.TrainerAggregate;
 using DomeGym.Domain.SubscriptionAggregate;
 using DomeGym.Application.Common.Interfaces;
+using System.Reflection;
 
 namespace DomeGym.Infrastructure.Common.Persistence;
 
@@ -35,6 +36,11 @@ public class DomeGymDbContext : DbContext, IUnitOfWork
         : base(options)
     {
         
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 
     public Task CommitChangesAsync()
