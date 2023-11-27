@@ -22,6 +22,7 @@ public class Trainer : AggregateRoot
         : base(trainerId ?? Guid.NewGuid())
     {
         TrainersSchedule = new Schedule(scheduleId: Guid.NewGuid());
+        SessionIds = new List<Guid>();
     }
 
     public ErrorOr<Success> AssignSession(Session session)

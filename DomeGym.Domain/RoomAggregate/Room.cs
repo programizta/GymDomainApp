@@ -26,7 +26,8 @@ public class Room : AggregateRoot
     {
         MaxNumberOfSessions = maxNumberOfSessions;
         Schedule = new Schedule(scheduleId: Guid.NewGuid());
-        SessionIds = new List<Guid>(MaxNumberOfSessions);
+        SessionIds = MaxNumberOfSessions == DomainConstants.SYSTEM_VALUE
+            ? new List<Guid>() : new List<Guid>(MaxNumberOfSessions);
     }
 
     public ErrorOr<Success> AddSession(Session session)

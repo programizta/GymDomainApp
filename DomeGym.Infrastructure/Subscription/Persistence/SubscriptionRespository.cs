@@ -20,6 +20,22 @@ public class SubscriptionRepository : ISubscriptionRespository
         await _dbContext.Subscriptions.AddAsync(subscriptionEntity);
     }
 
+    public async Task<bool> DeleteSubscriptionByIdAsync(Guid subscriptionId)
+    {
+        bool success = false;
+        var subscriptionToRemove = await GetSubscriptionByIdAsync(subscriptionId);
+
+        if (subscriptionToRemove is not null)
+        {
+            // first remove depending SubscriptionDetails and then Subscription
+            _dbContext.SubscriptionDetails.Remove(subscriptionToRemove.SubscriptionDetails);
+            _dbContext.Subscriptions.Remove(subscriptionToRemove);
+            success = true;
+        }
+
+        return success;
+    }
+
     public async Task<SubscriptionEntity?> GetSubscriptionByIdAsync(Guid subscriptionId)
     {
         var subscription = await _dbContext.Subscriptions.FirstOrDefaultAsync(x => x.Id == subscriptionId);

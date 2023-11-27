@@ -1,5 +1,7 @@
 using DomeGym.Application.Subscription.Commands.CreateSubscription;
+using DomeGym.Application.Subscription.Commands.DeleteSubscription;
 using DomeGym.Application.Subscription.Queries.GetSubscription;
+using DomeGym.Contracts.Common;
 using DomeGym.Contracts.Subscriptions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -38,15 +40,31 @@ public class SubscriptionsController : ControllerBase
         return Ok(response);
     }
 
+    [HttpDelete("{subscriptionId:guid}")]
+    public async Task<IActionResult> DeleteSubscription(Guid subscriptionId)
+    {
+        var command = new DeleteSubscriptionCommand(subscriptionId);
+        var deleteSubscriptionResult = await _mediator.Send(command);
+
+        if (deleteSubscriptionResult.IsError)
+        {
+            return Problem(deleteSubscriptionResult.FirstError.Description);
+        }
+
+        var response = new MessageResponse(deleteSubscriptionResult.Value);
+
+        return Ok(response);
+    }
+
     [HttpGet("{subscriptionId:guid}")]
     public async Task<IActionResult> GetSubscription(Guid subscriptionId)
     {
-        var command = new GetSubscriptionQuery(subscriptionId);
-        var getSubscriptionResult = await _mediator.Send(command);
+        var query = new GetSubscriptionQuery(subscriptionId);
+        var getSubscriptionResult = await _mediator.Send(query);
 
         if (getSubscriptionResult.IsError)
         {
-            return Problem();
+            return Problem(getSubscriptionResult.FirstError.Description);
         }
         
         var response = new SubscriptionResponse(
