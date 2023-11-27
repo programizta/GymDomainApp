@@ -1,7 +1,6 @@
 using SubscriptionEntity = DomeGym.Domain.SubscriptionAggregate.Subscription;
 using ErrorOr;
 using MediatR;
-using DomeGym.Domain.Common.Constants;
 using DomeGym.Application.Common.Interfaces;
 using DomeGym.Domain.SubscriptionAggregate;
 
@@ -21,7 +20,7 @@ public class CreateSubscriptionCommandHandler
 
     public async Task<ErrorOr<SubscriptionEntity>> Handle(CreateSubscriptionCommand request, CancellationToken cancellationToken)
     {
-        // TODO: temporarily check here if the request is having either 'Free' or 'Premium' subscription
+        // TODO: implement result pattern for the subscription details retrieval
         var subscriptionType = await _subscriptionRespository.GetSubscriptionDetailsByName(request.SubscriptionType);
         var subscriptionToSave = new SubscriptionEntity(subscriptionType, request.AdminId);
 
