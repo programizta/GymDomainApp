@@ -48,10 +48,10 @@ public class SubscriptionsController : ControllerBase
 
         if (deleteSubscriptionResult.IsError)
         {
-            return Problem(deleteSubscriptionResult.FirstError.Description);
+            return Problem(string.Format(deleteSubscriptionResult.FirstError.Description, subscriptionId.ToString()));
         }
 
-        var response = new MessageResponse(deleteSubscriptionResult.Value);
+        var response = new MessageResponse(string.Format("Subscription with ID: {0} was deleted", subscriptionId.ToString()));
 
         return Ok(response);
     }

@@ -162,7 +162,7 @@ namespace DomeGym.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f1e069da-c0cc-4a26-a1a9-90a4cc767394"),
+                            Id = new Guid("8b1ac7c1-7c44-41d0-a657-370bb948ea35"),
                             MaxNumberOfGyms = 1,
                             MaxNumberOfGymsAllowed = 1,
                             MaxNumberOfRoomsInGym = 1,
@@ -171,7 +171,7 @@ namespace DomeGym.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("60829e92-8a55-48a3-95f8-d5a3510eee3e"),
+                            Id = new Guid("71a2f665-6eff-427e-8ef4-bc385ffb15e8"),
                             MaxNumberOfGyms = -1,
                             MaxNumberOfGymsAllowed = -1,
                             MaxNumberOfRoomsInGym = -1,

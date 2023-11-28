@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace DomeGym.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class RecreatedMigration : Migration
+    public partial class RebuildDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -154,6 +156,15 @@ namespace DomeGym.Infrastructure.Migrations
                         principalTable: "SubscriptionDetails",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "SubscriptionDetails",
+                columns: new[] { "Id", "MaxNumberOfGyms", "MaxNumberOfGymsAllowed", "MaxNumberOfRoomsInGym", "MaxNumberOfSessionsInRoom", "SubscriptionName" },
+                values: new object[,]
+                {
+                    { new Guid("71a2f665-6eff-427e-8ef4-bc385ffb15e8"), -1, -1, -1, -1, "Premium" },
+                    { new Guid("8b1ac7c1-7c44-41d0-a657-370bb948ea35"), 1, 1, 1, 1, "Free" }
                 });
 
             migrationBuilder.CreateIndex(

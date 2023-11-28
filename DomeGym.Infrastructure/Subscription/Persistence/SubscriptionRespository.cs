@@ -27,8 +27,8 @@ public class SubscriptionRepository : ISubscriptionRespository
 
         if (subscriptionToRemove is not null)
         {
-            // first remove depending SubscriptionDetails and then Subscription
-            _dbContext.SubscriptionDetails.Remove(subscriptionToRemove.SubscriptionDetails);
+            // first remove depending SubscriptionDetails from Subscription and then the Subscription itself
+            //subscriptionToRemove.SubscriptionDetails = null;
             _dbContext.Subscriptions.Remove(subscriptionToRemove);
             success = true;
         }

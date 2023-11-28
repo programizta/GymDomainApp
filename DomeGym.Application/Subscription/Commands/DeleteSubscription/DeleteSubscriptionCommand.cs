@@ -4,4 +4,4 @@ using ErrorOr;
 using MediatR;
 
 public record DeleteSubscriptionCommand(Guid SubscriptionId)
-    : IRequest<ErrorOr<string>>;
+    : IRequest<ErrorOr<Deleted>>;

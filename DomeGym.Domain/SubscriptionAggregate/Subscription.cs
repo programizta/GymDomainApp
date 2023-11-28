@@ -30,6 +30,7 @@ public class Subscription : AggregateRoot
         GymIds = new();
         SubscriptionDetails = subscriptionDetails;
         AdminId = adminId;
+        SubscriptionDetailsId = SubscriptionDetails.Id;
     }
 
     public ErrorOr<Success> AssignGymToSubscription(Gym gym)
@@ -46,6 +47,9 @@ public class Subscription : AggregateRoot
 
         return Result.Success;
     }
+
+    // public void ClearSubscriptionDetails() =>
+    //     SubscriptionDetails = null;
 
     public void AssignDetailsToSubscription(SubscriptionDetails subscriptionDetails)
     {

@@ -2,7 +2,6 @@ using SubscriptionEntity = DomeGym.Domain.SubscriptionAggregate.Subscription;
 using ErrorOr;
 using MediatR;
 using DomeGym.Application.Common.Interfaces;
-using DomeGym.Domain.SubscriptionAggregate;
 
 namespace DomeGym.Application.Subscription.Commands.CreateSubscription;
 
@@ -21,8 +20,8 @@ public class CreateSubscriptionCommandHandler
     public async Task<ErrorOr<SubscriptionEntity>> Handle(CreateSubscriptionCommand request, CancellationToken cancellationToken)
     {
         // TODO: implement result pattern for the subscription details retrieval
-        var subscriptionType = await _subscriptionRespository.GetSubscriptionDetailsByName(request.SubscriptionType);
-        var subscriptionToSave = new SubscriptionEntity(subscriptionType, request.AdminId);
+        var subscriptionDetails = await _subscriptionRespository.GetSubscriptionDetailsByName(request.SubscriptionType);
+        var subscriptionToSave = new SubscriptionEntity(subscriptionDetails, request.AdminId);
 
         // TODO: inside "CreateSubscriptionAsync" implement validation on DomainKey
         await _subscriptionRespository.AddSubscriptionAsync(subscriptionToSave);
