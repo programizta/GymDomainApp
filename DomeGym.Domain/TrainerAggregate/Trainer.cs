@@ -27,6 +27,13 @@ public class Trainer : AggregateRoot
 
     public ErrorOr<Success> AssignSession(Session session)
     {
+        // TODO: implement nicer way of handing the exception while adding
+        // existing session to the SessionIds
+        if (SessionIds.Any(x => x == session.Id))
+        {
+            throw new Exception();
+        }
+
         if (IsSessionOverlapping(session))
         {
             return TrainerErrors.CannotAssignOverlappingSessionToTrainer;

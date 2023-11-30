@@ -35,6 +35,13 @@ public class Subscription : AggregateRoot
 
     public ErrorOr<Success> AssignGymToSubscription(Gym gym)
     {
+        // TODO: implement nicer way of handing the exception while adding
+        // existing gym to the GymIds
+        if (GymIds.Any(x => x == gym.Id))
+        {
+            throw new Exception();
+        }
+
         // if the subscription is premium or the number of maximum allowed gyms in the subscription
         // hasn't been exceeded, we should allow adding the gym to the subscription
         if (SubscriptionDetails.MaxNumberOfGymsAllowed != DomainConstants.SYSTEM_VALUE
@@ -47,9 +54,6 @@ public class Subscription : AggregateRoot
 
         return Result.Success;
     }
-
-    // public void ClearSubscriptionDetails() =>
-    //     SubscriptionDetails = null;
 
     public void AssignDetailsToSubscription(SubscriptionDetails subscriptionDetails)
     {
