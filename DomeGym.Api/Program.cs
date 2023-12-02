@@ -3,6 +3,7 @@ using DomeGym.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
+builder.Services.AddProblemDetails();
 
 // to allow other projects grow independently from one another
 // we are not going to register all the services inside the Program.cs (which is in the presentation layer)
@@ -15,7 +16,10 @@ builder.Services
 
 var app = builder.Build();
 
+app.UseExceptionHandler();
+
 app.UseHttpsRedirection();
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();

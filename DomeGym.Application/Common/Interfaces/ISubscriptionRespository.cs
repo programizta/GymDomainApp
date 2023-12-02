@@ -6,7 +6,7 @@ namespace DomeGym.Application.Common.Interfaces;
 
 public interface ISubscriptionRespository
 {
-    Task AddSubscriptionAsync(SubscriptionEntity subscriptionEntity);
+    Task<ErrorOr<Success>> AddSubscriptionAsync(SubscriptionEntity subscriptionEntity);
 
     Task<SubscriptionEntity?> GetSubscriptionByIdAsync(Guid subscriptionId);
 

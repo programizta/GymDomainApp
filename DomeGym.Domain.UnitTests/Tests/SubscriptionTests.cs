@@ -1,3 +1,4 @@
+using System;
 using DomeGym.Domain.Common.Constants;
 using DomeGym.Domain.SubscriptionAggregate;
 using DomeGym.Domain.UnitTests.TestUtils.Gyms;
@@ -16,8 +17,10 @@ public class SubscriptionTests
         // create free subscription
         // create two gyms
         var freeSubscription = SubscriptionFactory.CreateSubscription(DomainConstants.FreeSubscription);
-        var gym1 = GymFactory.CreateGym(freeSubscription.SubscriptionDetails.MaxNumberOfRoomsInGym);
-        var gym2 = GymFactory.CreateGym(freeSubscription.SubscriptionDetails.MaxNumberOfRoomsInGym);
+        var gym1 = GymFactory.CreateGym(freeSubscription.SubscriptionDetails.MaxNumberOfRoomsInGym,
+            Guid.NewGuid());
+        var gym2 = GymFactory.CreateGym(freeSubscription.SubscriptionDetails.MaxNumberOfRoomsInGym,
+            Guid.NewGuid());
 
         // Act
         // add two gyms to the subscription

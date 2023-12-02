@@ -3,6 +3,7 @@ using DomeGym.Application.Common.Interfaces;
 using DomeGym.Infrastructure.Common.Persistence;
 using Microsoft.EntityFrameworkCore;
 using DomeGym.Domain.SubscriptionAggregate;
+using ErrorOr;
 
 namespace DomeGym.Infrastructure.Subscription.Persistence;
 
@@ -15,9 +16,16 @@ public class SubscriptionRepository : ISubscriptionRespository
         _dbContext = dbContext;
     }
 
-    public async Task AddSubscriptionAsync(SubscriptionEntity subscriptionEntity)
+    public async Task<ErrorOr<Success>> AddSubscriptionAsync(SubscriptionEntity subscriptionEntity)
     {
+        if (await _dbContext.Subscriptions.AnyAsync(x => x.Id == subscriptionEntity.Id))
+        {
+            return SubscriptionRepositoryErrors.SubscriptionCurrentlyExists;
+        }
+
         await _dbContext.Subscriptions.AddAsync(subscriptionEntity);
+
+        return Result.Success;
     }
 
     public async Task<bool> DeleteSubscriptionByIdAsync(Guid subscriptionId)

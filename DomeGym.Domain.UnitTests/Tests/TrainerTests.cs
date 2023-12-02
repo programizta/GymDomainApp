@@ -1,3 +1,4 @@
+using System;
 using DomeGym.Domain.TrainerAggregate;
 using DomeGym.Domain.UnitTests.TestUtils.Sessions;
 using DomeGym.Domain.UnitTests.TestUtils.Trainers;
@@ -16,12 +17,14 @@ public class TrainerTests
         var session1 = SessionFactory.CreateSession(
             date: TestConstants.Session.Date,
             startTime: TestConstants.Session.StartTime1,
-            endTime: TestConstants.Session.EndTime1);
+            endTime: TestConstants.Session.EndTime1,
+            id: Guid.NewGuid());
 
         var session2 = SessionFactory.CreateSession(
             date: TestConstants.Session.Date,
             startTime: TestConstants.Session.StartTime1,
-            endTime: TestConstants.Session.EndTime1);
+            endTime: TestConstants.Session.EndTime1,
+            id: Guid.NewGuid());
 
         // Act
         var assigningSession1ToTrainerResult = trainer.AssignSession(session1);
@@ -41,12 +44,14 @@ public class TrainerTests
         var session1 = SessionFactory.CreateSession(
             date: TestConstants.Session.Date,
             startTime: TestConstants.Session.StartTime1,
-            endTime: TestConstants.Session.EndTime1);
+            endTime: TestConstants.Session.EndTime1,
+            id: Guid.NewGuid());
 
         var session2 = SessionFactory.CreateSession(
             date: TestConstants.Session.Date,
             startTime: TestConstants.Session.StartTime2,
-            endTime: TestConstants.Session.EndTime2);
+            endTime: TestConstants.Session.EndTime2,
+            id: Guid.NewGuid());
 
         // Act
         var assigningSession1ToTrainerResult = trainer.AssignSession(session1);

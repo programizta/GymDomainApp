@@ -19,12 +19,23 @@ public class CreateSubscriptionCommandHandler
 
     public async Task<ErrorOr<SubscriptionEntity>> Handle(CreateSubscriptionCommand request, CancellationToken cancellationToken)
     {
-        // TODO: implement result pattern for the subscription details retrieval
         var subscriptionDetails = await _subscriptionRespository.GetSubscriptionDetailsByName(request.SubscriptionType);
+
+        if (subscriptionDetails is null)
+        {
+            return Error.NotFound(description: "Details for subscription could not be found");
+        }
+
         var subscriptionToSave = new SubscriptionEntity(subscriptionDetails, request.AdminId);
 
         // TODO: inside "CreateSubscriptionAsync" implement validation on DomainKey
-        await _subscriptionRespository.AddSubscriptionAsync(subscriptionToSave);
+        var addingSubscriptionResult = await _subscriptionRespository.AddSubscriptionAsync(subscriptionToSave);
+
+        if (addingSubscriptionResult.IsError)
+        {
+            return addingSubscriptionResult.Errors;
+        }
+
         await _unitOfWork.CommitChangesAsync();
 
         return subscriptionToSave;
